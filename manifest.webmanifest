@@ -1,6 +1,6 @@
 {
-    "name": "TC Union HR",
-    "short_name": "TC Union HR",
+    "name": "Scanner Pro",
+    "short_name": "Scanner Pro",
     "icons": [
       {
         "src": "L55681_logo_20230918131228.webp",
@@ -27,4 +27,5 @@
     "display": "standalone",
     "start_url": "/index/"
 }
+
 
