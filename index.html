@@ -16,7 +16,6 @@
         body { font-family: 'Sarabun', sans-serif; }
         #reader { width: 100%; border-radius: 0.5rem; overflow: hidden; border: none !important; background-color: #000; }
         #reader video { object-fit: cover; width: 100% !important; height: 100% !important; border-radius: 0.5rem; }
-        /* Animation */
         .fade-in { animation: fadeIn 0.3s ease-in-out; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
@@ -52,7 +51,7 @@
                              <div class="flex justify-center gap-4 opacity-30">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M12 4v1m6 11h2m-6 0h-2v4h-4v-4H8m1-6V4m0 1h-1v1h1v-1zm4 1v1h-1v-1h1zm4 1h1v1h-1v-1zm-4-1v1h-1v-1h1zm-4-1h1v1h-1v-1zm-4 1h1v1h-1v-1z" /></svg>
                             </div>
-                            <p class="text-xs font-light">พร้อมสแกน</p>
+                            <p class="text-xs font-light">กดปุ่มด้านล่างเพื่อสแกน</p>
                         </div>
                     </div>
                 </div>
@@ -62,9 +61,12 @@
                         <button id="start-camera-btn" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-4 rounded-xl shadow-md transition-all active:scale-95">เปิดกล้อง</button>
                         <button id="stop-camera-btn" class="hidden flex-1 bg-red-500 hover:bg-red-600 text-white font-medium py-3 px-4 rounded-xl shadow-md transition-all active:scale-95">ปิดกล้อง</button>
                     </div>
-                    <form id="record-form" class="flex gap-2">
-                        <input type="text" id="manual-input" class="flex-1 rounded-xl border-slate-200 border-2 px-4 py-3 focus:border-blue-500 focus:outline-none transition-colors text-lg" placeholder="กรอกรหัส...">
-                        <button type="submit" id="save-btn" class="bg-slate-800 hover:bg-slate-900 text-white font-bold px-6 rounded-xl shadow-md transition-all active:scale-95 disabled:opacity-50">บันทึก</button>
+                    
+                    <form id="record-form" class="flex flex-col sm:flex-row gap-3">
+                        <input type="text" id="manual-input" class="w-full rounded-xl border-slate-200 border-2 px-4 py-3 focus:border-blue-500 focus:outline-none transition-colors text-lg" placeholder="กรอกรหัส...">
+                        <button type="submit" id="save-btn" class="w-full sm:w-auto bg-slate-800 hover:bg-slate-900 text-white font-bold py-3 px-8 rounded-xl shadow-md transition-all active:scale-95 disabled:opacity-50 whitespace-nowrap">
+                            บันทึก
+                        </button>
                     </form>
                 </div>
             </div>
@@ -77,7 +79,7 @@
                     <button onclick="loadHistory()" class="text-xs text-blue-600 hover:text-blue-800 font-medium">รีเฟรช</button>
                 </div>
                 
-                <div id="history-loading" class="p-8 text-center text-slate-400 text-sm hidden">กำลังโหลดข้อมูล...</div>
+                <div id="history-loading" class="p-8 text-center text-slate-400 text-sm hidden">กำลังโหลด...</div>
                 <div id="history-empty" class="p-8 text-center text-slate-400 text-sm hidden">ยังไม่มีข้อมูลวันนี้</div>
                 
                 <div class="overflow-x-auto">
@@ -94,8 +96,7 @@
                         <span class="text-slate-400 group-open:rotate-180 transition-transform">▼</span>
                     </summary>
                     <div class="p-5 border-t border-slate-100 space-y-4">
-                        
-                        <div class="space-y-1">
+                         <div class="space-y-1">
                              <label class="text-[10px] font-bold text-slate-400 uppercase">URL ของเว็บนี้ (GitHub)</label>
                              <div class="flex gap-2">
                                 <input type="text" id="app-url-setting" class="flex-1 rounded border px-3 py-2 text-sm bg-slate-50 text-slate-500" placeholder="https://yourname.github.io/...">
@@ -103,17 +104,14 @@
                              </div>
                         </div>
                         <hr class="border-slate-100">
-
                         <div class="space-y-1">
                             <label class="text-[10px] font-bold text-slate-400 uppercase">เลือกคลังข้อมูล (Profiles)</label>
                             <select id="config-select" onchange="onConfigChange()" class="w-full rounded border px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 outline-none"><option value="">-- สร้างใหม่ --</option></select>
                         </div>
-                        
                         <div class="grid grid-cols-1 gap-3">
                             <input type="text" id="config-name" class="w-full rounded border px-3 py-2 text-sm" placeholder="ชื่อเรียก (เช่น สาขา 1)">
                             <input type="text" id="config-id" class="w-full rounded border px-3 py-2 text-sm font-mono" placeholder="Google Sheet ID">
                         </div>
-                        
                         <div class="flex gap-3 pt-2">
                             <button onclick="handleSaveConfig()" class="flex-1 bg-green-600 hover:bg-green-700 text-white text-sm font-bold py-2.5 rounded-lg shadow-sm transition-colors">บันทึก Sheet</button>
                             <button onclick="handleDeleteConfig()" id="btn-delete" class="hidden px-4 py-2.5 bg-red-50 text-red-600 rounded-lg text-sm font-bold hover:bg-red-100">ลบ</button>
@@ -121,9 +119,9 @@
                     </div>
                 </details>
             </div>
-
+            
             <footer class="mt-8 text-center text-xs text-slate-400 pb-4">
-                Scanner Pro for GitHub Pages
+                Scanner Pro (GitHub Hosted)
             </footer>
         </div>
     </main>
@@ -140,11 +138,11 @@
         </div>
     </div>
 
-    <audio id="beep-sound" src="data:audio/wav;base64,UklGRl9vT19XQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YU"></audio>
+    <audio id="beep-sound" src="./beep.mp3" preload="auto"></audio>
 
     <script>
         // =========================================================================
-        // ⚠️ สำคัญ: นำ URL จาก Google Apps Script มาใส่ตรงนี้ ⚠️
+        // ⚠️ ใส่ URL Google Apps Script ของคุณ ⚠️
         // =========================================================================
         const API_URL = "https://script.google.com/macros/s/AKfycbw5HTnqhPy6WFKkWWrBkwKe85HnYIbxZnezOrWjDgg-gZJqAN59aOSWT_jMQqHBEgf_QQ/exec"; 
         
@@ -160,10 +158,8 @@
         const historyList = document.getElementById('history-list');
 
         // --- Core Functions ---
-        
         async function callAPI(action, data = {}) {
             try {
-                // ยิงไปหา Google Script (Backend)
                 const response = await fetch(API_URL, {
                     method: 'POST',
                     body: JSON.stringify({ action: action, data: data })
@@ -176,37 +172,25 @@
         }
 
         async function initSystem() {
-            Swal.fire({
-                title: 'กำลังเชื่อมต่อ...',
-                text: 'กรุณารอสักครู่',
-                allowOutsideClick: false,
-                didOpen: () => { Swal.showLoading(); }
-            });
-
-            // โหลด Config และ URL
+            Swal.fire({ title: 'เชื่อมต่อ...', allowOutsideClick: false, didOpen: () => { Swal.showLoading(); } });
             const res = await callAPI('getConfig');
-            
             Swal.close();
 
             if(res.configs) {
                 savedConfigs = JSON.parse(res.configs);
                 activeId = res.activeId;
                 savedAppUrl = res.appUrl || "";
-                
-                // Set ค่าให้ UI
                 if(savedAppUrl) document.getElementById('app-url-setting').value = savedAppUrl;
-                
                 reloadConfigs();
                 if(activeId) loadHistory();
             }
         }
 
-        // --- Save Logic ---
         async function handleSave(code) {
             if(!code) return;
             isProcessing = true; 
             saveBtn.disabled = true; 
-            saveBtn.innerHTML = '<span class="animate-spin">↻</span>'; // Spinner icon
+            saveBtn.innerHTML = '<span class="animate-spin">↻</span>'; 
             
             const res = await callAPI('saveCode', code);
             
@@ -219,19 +203,13 @@
                 inputField.value = '';
                 loadHistory();
             } else if (res.duplicate) {
-                Swal.fire({
-                    title: 'ข้อมูลซ้ำ!', 
-                    text: `รหัส ${res.code} มีอยู่แล้ว`, 
-                    icon: 'warning',
-                    confirmButtonColor: '#f59e0b'
-                });
+                Swal.fire({ title: 'ข้อมูลซ้ำ!', text: `รหัส ${res.code} มีอยู่แล้ว`, icon: 'warning' });
                 inputField.value = '';
             } else {
                 Swal.fire('Error', res.error || 'Unknown Error', 'error');
             }
         }
 
-        // --- History Logic ---
         async function loadHistory() {
             if(!activeId) return;
             document.getElementById('history-loading').classList.remove('hidden');
@@ -250,22 +228,17 @@
 
             res.history.forEach(item => {
                 const tr = document.createElement('tr');
-                tr.className = "hover:bg-slate-50 border-b border-slate-100 group transition-colors";
+                tr.className = "hover:bg-slate-50 border-b border-slate-100";
                 tr.innerHTML = `
                     <td class="px-5 py-4 align-top">
                         <div class="font-bold text-slate-800 text-lg break-all cursor-pointer hover:text-blue-600 flex items-center gap-2" onclick="showBarcodeModal('${item.code}')">
                             ${item.code}
                             <span class="text-xs bg-slate-100 text-slate-400 px-1 rounded border border-slate-200">VIEW</span>
                         </div>
-                        <div class="text-xs text-slate-400 mt-1 flex items-center gap-1">
-                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                            ${formatDate(item.time)}
-                        </div>
+                        <div class="text-xs text-slate-400 mt-1">${formatDate(item.time)}</div>
                     </td>
                     <td class="px-2 py-4 text-right align-top w-16">
-                        <button onclick="deleteHistory('${item.row}')" class="text-slate-300 hover:text-red-500 hover:bg-red-50 p-2 rounded-lg transition-colors">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
-                        </button>
+                        <button onclick="deleteHistory('${item.row}')" class="text-slate-300 hover:text-red-500 hover:bg-red-50 p-2 rounded-lg transition-colors">🗑️</button>
                     </td>
                 `;
                 historyList.appendChild(tr);
@@ -279,12 +252,7 @@
 
         function deleteHistory(row) {
             Swal.fire({ 
-                title: 'ยืนยันลบ?', 
-                icon: 'warning', 
-                showCancelButton: true, 
-                confirmButtonColor: '#ef4444',
-                confirmButtonText: 'ลบ',
-                cancelButtonText: 'ยกเลิก'
+                title: 'ยืนยันลบ?', icon: 'warning', showCancelButton: true, confirmButtonColor: '#ef4444', confirmButtonText: 'ลบ', cancelButtonText: 'ยกเลิก'
             }).then(async (r) => {
                 if(r.isConfirmed) {
                     Swal.showLoading();
@@ -295,52 +263,38 @@
             });
         }
 
-        // --- Configs ---
+        // --- Configs & Settings ---
         async function handleSaveConfig() { 
             const name = document.getElementById('config-name').value; 
             const id = document.getElementById('config-id').value;
             const idx = document.getElementById('config-select').value;
-            
             if(!name || !id) { Swal.fire('ข้อมูลไม่ครบ', 'ใส่ชื่อและ ID ให้ครบ', 'error'); return; }
             
-            if(idx !== "") savedConfigs[idx] = {name, id}; 
-            else savedConfigs.push({name, id});
+            if(idx !== "") savedConfigs[idx] = {name, id}; else savedConfigs.push({name, id});
             
             Swal.showLoading();
             await callAPI('saveConfig', { configs: savedConfigs, id: id });
             Swal.close();
-            
-            activeId = id;
-            reloadConfigs();
-            loadHistory();
+            activeId = id; reloadConfigs(); loadHistory();
             Swal.fire('Saved', 'บันทึกการตั้งค่าแล้ว', 'success');
         }
         
         async function handleDeleteConfig() {
              const idx = document.getElementById('config-select').value;
              if(idx === "") return;
-             
              savedConfigs.splice(idx, 1);
              if(savedConfigs.length === 0) activeId = ""; else activeId = savedConfigs[0].id;
-             
-             await callAPI('saveConfig', { configs: savedConfigs, id: activeId }); 
-             reloadConfigs();
+             await callAPI('saveConfig', { configs: savedConfigs, id: activeId }); reloadConfigs();
         }
 
         function reloadConfigs() {
             const sel = document.getElementById('config-select'); 
             sel.innerHTML = '<option value="">-- สร้างใหม่ --</option>';
             const statusBar = document.getElementById('status-bar');
-            
             let found = false;
             savedConfigs.forEach((c,i) => { 
                 const opt = document.createElement('option'); opt.value = i; opt.text = c.name; 
-                if(c.id === activeId) { 
-                    opt.selected = true; 
-                    document.getElementById('current-active-name').innerText = c.name; 
-                    statusBar.classList.remove('hidden');
-                    found = true;
-                }
+                if(c.id === activeId) { opt.selected = true; document.getElementById('current-active-name').innerText = c.name; statusBar.classList.remove('hidden'); found = true; }
                 sel.appendChild(opt); 
             });
             if(!found) statusBar.classList.add('hidden');
@@ -355,8 +309,7 @@
                 document.getElementById('config-id').value = cfg.id;
                 document.getElementById('btn-delete').classList.remove('hidden');
             } else {
-                document.getElementById('config-name').value = ""; 
-                document.getElementById('config-id').value = "";
+                document.getElementById('config-name').value = ""; document.getElementById('config-id').value = "";
                 document.getElementById('btn-delete').classList.add('hidden');
             }
         }
@@ -365,23 +318,29 @@
             const url = document.getElementById('app-url-setting').value;
             await callAPI('saveAppUrl', url);
             savedAppUrl = url;
-            Swal.fire('Saved', 'บันทึก URL สำหรับแชร์เรียบร้อย', 'success');
+            Swal.fire('Saved', 'บันทึก URL เรียบร้อย', 'success');
         }
 
-        function openSettings() { 
-            const details = document.getElementById('settings-details');
-            details.open = true; 
-            details.scrollIntoView({behavior: "smooth"}); 
+        function openSettings() { const details = document.getElementById('settings-details'); details.open = true; details.scrollIntoView({behavior: "smooth"}); }
+
+        // --- 🔊 Sound Function ---
+        function playBeep() { 
+            const audio = document.getElementById('beep-sound');
+            if(audio) {
+                audio.currentTime = 0;
+                audio.play().catch(e => console.log('Audio Autoplay Blocked:', e));
+            }
         }
 
         // --- Camera & Modal ---
-        function playBeep() { try { document.getElementById('beep-sound').play().catch(()=>{}); } catch(e){} }
-
         document.getElementById('start-camera-btn').addEventListener('click', () => {
             document.getElementById('camera-placeholder').classList.add('hidden');
             document.getElementById('reader').classList.remove('hidden');
             document.getElementById('start-camera-btn').classList.add('hidden');
             document.getElementById('stop-camera-btn').classList.remove('hidden');
+
+            // Trigger audio once to unlock autoplay policy on iOS/Android
+            playBeep(); 
 
             html5QrCode = new Html5Qrcode("reader");
             html5QrCode.start({ facingMode: "environment" }, { fps: 15, qrbox: { width: 250, height: 250 }, aspectRatio: 1.0 }, 
@@ -393,22 +352,10 @@
             });
         });
 
-        document.getElementById('stop-camera-btn').addEventListener('click', () => { 
-            if(html5QrCode) html5QrCode.stop().then(resetCam).catch(resetCam); else resetCam(); 
-        });
-        function resetCam() { 
-            document.getElementById('reader').classList.add('hidden'); 
-            document.getElementById('camera-placeholder').classList.remove('hidden'); 
-            document.getElementById('stop-camera-btn').classList.add('hidden'); 
-            document.getElementById('start-camera-btn').classList.remove('hidden'); 
-        }
+        document.getElementById('stop-camera-btn').addEventListener('click', () => { if(html5QrCode) html5QrCode.stop().then(resetCam).catch(resetCam); else resetCam(); });
+        function resetCam() { document.getElementById('reader').classList.add('hidden'); document.getElementById('camera-placeholder').classList.remove('hidden'); document.getElementById('stop-camera-btn').classList.add('hidden'); document.getElementById('start-camera-btn').classList.remove('hidden'); }
 
-        inputField.addEventListener('keydown', (e) => { 
-            if(e.key === 'Enter' && inputField.value) { 
-                e.preventDefault(); 
-                handleSave(inputField.value); 
-            } 
-        });
+        inputField.addEventListener('keydown', (e) => { if(e.key === 'Enter' && inputField.value) { e.preventDefault(); handleSave(inputField.value); } });
         document.getElementById('record-form').addEventListener('submit', (e) => { e.preventDefault(); });
 
         function showBarcodeModal(code) {
@@ -427,10 +374,8 @@
             }
         }
 
-        // --- Share Modal (ปุ่ม Copy อยู่ที่นี่) ---
         function openShareModal() {
             const targetUrl = savedAppUrl || window.location.href;
-            
             Swal.fire({
                 title: 'แชร์ระบบบันทึก',
                 html: `
@@ -440,38 +385,28 @@
                             <label class="text-[10px] text-slate-400 font-bold uppercase tracking-wider pl-1">ลิงก์ใช้งาน</label>
                             <div class="flex gap-2">
                                 <input type="text" id="share-link-input" value="${targetUrl}" readonly class="flex-1 bg-slate-50 border border-slate-200 text-slate-600 text-sm rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-100">
-                                <button onclick="copyShareLink()" class="bg-slate-800 hover:bg-slate-900 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors flex items-center gap-2 shadow-sm whitespace-nowrap">
-                                    คัดลอก
-                                </button>
+                                <button onclick="copyShareLink()" class="bg-slate-800 hover:bg-slate-900 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors flex items-center gap-2 shadow-sm whitespace-nowrap">คัดลอก</button>
                             </div>
                         </div>
                     </div>`,
-                showConfirmButton: false,
-                showCloseButton: true,
-                customClass: { popup: 'rounded-2xl w-full max-w-sm font-sans' },
+                showConfirmButton: false, showCloseButton: true, customClass: { popup: 'rounded-2xl w-full max-w-sm font-sans' },
                 didOpen: () => {
                     document.getElementById("share-qrcode").innerHTML = "";
-                    new QRCode(document.getElementById("share-qrcode"), {
-                        text: targetUrl, width: 160, height: 160, colorDark : "#1e293b", colorLight : "#ffffff", correctLevel : QRCode.CorrectLevel.H
-                    });
+                    new QRCode(document.getElementById("share-qrcode"), { text: targetUrl, width: 160, height: 160, colorDark : "#1e293b", colorLight : "#ffffff", correctLevel : QRCode.CorrectLevel.H });
                 }
             });
         }
 
         function copyShareLink() {
             const copyText = document.getElementById("share-link-input");
-            copyText.select();
-            copyText.setSelectionRange(0, 99999);
+            copyText.select(); copyText.setSelectionRange(0, 99999);
             navigator.clipboard.writeText(copyText.value).then(() => {
-                const btn = document.querySelector('button[onclick="copyShareLink()"]');
-                const oldText = btn.innerText;
-                btn.innerText = "เรียบร้อย!";
-                btn.classList.add('bg-green-600');
+                const btn = document.querySelector('button[onclick="copyShareLink()"]'); const oldText = btn.innerText;
+                btn.innerText = "เรียบร้อย!"; btn.classList.add('bg-green-600');
                 setTimeout(()=>{ btn.innerText = oldText; btn.classList.remove('bg-green-600'); }, 2000);
             });
         }
 
-        // START
         initSystem();
     </script>
 </body>
